@@ -7,11 +7,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const horseForm = document.getElementById("horseForm");
   const resetButton = document.getElementById("resetButton");
   resetButton.addEventListener("click", resetForm);
-  horseForm.addEventListener("submit", handleFormSubmit);
+  horseForm.addEventListener("submit", formSubmit);
   listHorse();
 });
 
-function handleFormSubmit(event) { 
+function formSubmit(event) { 
   event.preventDefault();
   const id = document.getElementById("id").value;
   const Horse = document.getElementById("name").value;
@@ -49,8 +49,8 @@ async function updateHorse(id, horse) {
 }
 
 async function addHorse(horse) {
-  console.log(horse);  // nem feltétlen kell
-  console.log(JSON.stringify(horse)); // nem feltétlen kell
+  console.log(horse); 
+  console.log(JSON.stringify(horse)); 
   
   const response = await fetch(api_url, {
     method: "POST",
@@ -69,23 +69,17 @@ function resetForm() {
   document.getElementById('id').value = "";
   document.getElementById('name').value = "";
   document.getElementById('age').value = "";
-  document.querySelector('input[name="gender"]:checked').checked = false;
-  document.querySelector('input[name="race"]:checked').checked = false;
-  document.getElementById('rank').value = "";
-  document.getElementById("updateButton").classList.add('hide');
-  document.getElementById("submitButton").classList.remove('hide');
 
-
-/*
-  genderInputs.forEach(input => {
+  document.querySelectorAll('input[name="gender"]').forEach(input => {
+    input.checked = false;
+  });
+  document.querySelectorAll('input[name="race"]').forEach(input => {
     input.checked = false;
   });
 
-  raceInputs.forEach(input => {
-    input.checked = false;
-  });  */
-  
-  
+  document.getElementById('rank').value = "";
+  document.getElementById("updateButton").classList.add('hide');
+  document.getElementById("submitButton").classList.remove('hide');
 }
 
 function listHorse() {
@@ -93,7 +87,7 @@ function listHorse() {
   fetch(api_url).then(httpResponse => httpResponse.json())
   
   .then(responseBody => {
-    console.log(responseBody)  // nem feltétlen kell
+    console.log(responseBody)  
     horseTable.innerHTML = "";
     responseBody.forEach(horse => {
       const tableRow = document.createElement("tr");
@@ -107,15 +101,13 @@ function listHorse() {
       const actionsTableData = document.createElement("td");
 
       const updateButton = document.createElement("button");
-      updateButton.textContent = "Update";
-      
-      updateButton.addEventListener("click", () => updateForm(horse.id));  //Id volt
+      updateButton.textContent = "Update";      
+      updateButton.addEventListener("click", () => updateForm(horse.id)); 
       actionsTableData.appendChild(updateButton)
 
       const deleteButton = document.createElement("button");
-      deleteButton.textContent = "Delete";
-    
-      deleteButton.addEventListener("click", () => deleteHorse(horse.id));  //Id volt
+      deleteButton.textContent = "Delete";    
+      deleteButton.addEventListener("click", () => deleteHorse(horse.id)); 
       actionsTableData.appendChild(deleteButton)     
       
       idTableData.textContent = horse.id;
@@ -124,7 +116,6 @@ function listHorse() {
       GenderTableData.textContent = horse.Gender;
       CompetesTableData.textContent = horse.Competes;
       RankingTableData.textContent = horse.Ranking;
-
 
       tableRow.appendChild(idTableData);
       tableRow.appendChild(HorseTableData);
@@ -140,7 +131,7 @@ function listHorse() {
 }
 
 async function deleteHorse(id) {  
-  console.log("Delete Horse - Horse ID:", id); // ell ként
+  console.log("Delete Horse - Horse ID:", id);
   const response = await fetch(`${api_url}/${id}`, { method: "DELETE" });
   console.log(response);
   console.log(await response.text());
@@ -150,7 +141,7 @@ async function deleteHorse(id) {
 }
 
 async function updateForm(id) {
-  console.log("Update Form - Horse ID:", id);  // ellként
+  console.log("Update Form - Horse ID:", id);  
   const response = await fetch(`${api_url}/${id}`);
   if (!response.ok) {
     alert("Hiba az adatok lekérése során!");
@@ -160,12 +151,29 @@ async function updateForm(id) {
   document.getElementById("id").value = horse.id;
   document.getElementById("name").value = horse.Horse;
   document.getElementById("age").value = horse.Age;
-  document.getElementById("gender").value = horse.Gender;
-  document.getElementById("race").value = horse.Competes;
+
+  const genderInputs = document.querySelectorAll('input[name="gender"]');
+  genderInputs.forEach(input => {
+    if (input.value === horse.Gender) {
+      input.checked = true;
+    } else {
+      input.checked = false;
+    }
+  });
+
+  const raceInputs = document.querySelectorAll('input[name="race"]');
+  raceInputs.forEach(input => {
+    if (input.value === horse.Competes) {
+      input.checked = true;
+    } else {
+      input.checked = false;
+    }
+  });
+
   document.getElementById("rank").value = horse.Ranking;
 
-  document.getElementById("submitButton").classList.add('hide'); // ('display-none')
-  document.getElementById("updateButton").classList.remove('hide'); // ('display-none')
+  document.getElementById("submitButton").classList.add('hide'); 
+  document.getElementById("updateButton").classList.remove('hide'); 
 }
 
 

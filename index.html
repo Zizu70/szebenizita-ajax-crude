@@ -57,36 +57,26 @@
               </div> <!--  age -->
 
               <div class="mb-3">
-                <label for="button" class="form-label">Gender</label>
-                <div id="buttons">
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="gender" id="gender1" value="stallion"/>
-                    <label class="form-check-label" for="flexRadioDefault1">
-                      stallion</label>
-                  </div>
-                  <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gender" id="gender2" value="mare" checked/>
-                      <label class="form-check-label" for="flexRadioDefault2">
-                      mare</label>
-                  </div> 
-                </div>
+                <label for="gender">Gender</label>
+                <br>
+                <input type="radio" name="gender" id="gender1" value="stallion" /> stallion
+                <br>
+                <input type="radio" name="gender" id="gender2" value="mare"/> mare
+                      
               </div> <!--  gender -->
 
               <div class="mb-3">
-                <label for="button" class="form-label">Competes</label>
+                <label for="button">Competes</label>
+                <br>
+                <!-- 
                 <div id="buttons">
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="race" id="race1" value="true"/>
-                    <label class="form-check-label" for="flexRadioDefault1">
-                      true</label>
-                  </div>
-                  <div class="form-check">
-                      <input class="form-check-input" type="radio" name="race" id="race2" value="false" checked/>
-                      <label class="form-check-label" for="flexRadioDefault2">
-                      false</label>
-                  </div> 
-                </div>
+                  -->
+                <input type="radio" name="race" id="race1" value="true" /> true
+                <br>
+                <input type="radio" name="race" id="race2" value="false"/> false
               </div> <!--  race  -->
+        
         
               <div class="mb-3">
                 <label for="number" class="form-label"
@@ -97,8 +87,7 @@
             <div class="card-footer">
               <div class="d-grid gap-1">
                 <button type="submit" id="submitButton" class="btn btn-primary">Submit</button>
-                <button type="button" id="updateButton" class="btn btn-success" class="hide" >
-                  Update</button>
+                <button type="submit" id="updateButton" class="btn btn-success hide">Update</button>
                 <button type="reset" id="resetButton" class="btn btn-danger">Reset</button> 
               </div>
             </div>
